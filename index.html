@@ -1352,11 +1352,15 @@ footer {
         </div>
         <div class="project-highlights">
           <ul>
-            <li>Random Forest lap-time prediction: RMSE = 0.993 seconds</li>
-            <li>XGBoost ensemble model: 96% accuracy with cross-validation</li>
-            <li>Trained DQN agent for reinforcement learning-based pit-stop optimization</li>
-            <li>Fine-tuned ResNet50 for computer vision circuit recognition</li>
-            <li>Deployed unified REST API supporting real-time & batch inference</li>
+            <li>Random Forest lap-time prediction – Achieved RMSE 2.787s (97% accuracy, R² 0.993) using 21 telemetry and environmental features.</li>
+            <li>XGBoost ensemble – Dual‑era classifier with logistic regression stacking, delivering 96.4% win accuracy and 93.2% podium accuracy.</li>
+            <li>Unsupervised driver clustering – KMeans identified 4 distinct driving archetypes (Aggressive, Smooth, Opportunistic, Balanced) from telemetry data.</li>
+            <li>Reinforcement learning pit‑stop optimizer – DQN agent trained in a custom gym environment with tyre degradation, learning optimal 2‑stop strategies for 52‑lap races.</li>
+            <li>Crash risk prediction – XGBoost classifier with ROC‑AUC 0.80 and 74% recall for estimating race incident probability and safety car likelihood.</li>
+            <li>Tire safety assessment – RandomForest model providing real‑time risk scores (0‑100) with SHAP explanations, enabling proactive pit decisions.</li>
+            <li>Computer vision circuit recognition – Fine‑tuned ResNet50 with transfer learning achieving 97.6% accuracy on 24 circuit schematics.</li>
+            <li>SHAP explainability – Integrated for lap‑time and tire safety predictions, giving feature‑level transparency.</li>
+            <li>Unified REST API – FastAPI backend serving all models for real‑time and batch inference, with comprehensive Swagger documentation.</li>
           </ul>
         </div>
       </div>
