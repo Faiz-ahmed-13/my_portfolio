@@ -973,6 +973,332 @@ footer {
   .research-paper-image { width:100%;max-width:100%; }
   .research-paper-image img { height:auto; }
 }
+
+/* ==================== HERO DOORS SECTION ==================== */
+.hero-doors {
+  margin-top: 80px;
+  padding-top: 60px;
+  padding-right: 64px;
+  opacity: 0;
+  animation: fadeUp .8s ease-out 1.6s forwards;
+  /* Extend to right edge of viewport */
+  width: calc(100vw - 64px);
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.doors-label {
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.doors-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+}
+
+.portal-door {
+  position: relative;
+  height: 320px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Animated background gradient */
+.portal-door::before {
+  content: '';
+  position: absolute;
+  inset: -100%;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    var(--accent-dim) 50%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.6s;
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+  100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+}
+
+.portal-door:hover::before {
+  opacity: 1;
+}
+
+/* Particle canvas for each door */
+.door-particles {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+}
+
+.portal-door:hover .door-particles {
+  opacity: 1;
+}
+
+/* Glitch effect overlay */
+.portal-door::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    transparent 0%,
+    rgba(0, 229, 255, 0.03) 50%,
+    transparent 100%
+  );
+  opacity: 0;
+  animation: scanline 2s linear infinite;
+}
+
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+.portal-door:hover::after {
+  opacity: 1;
+}
+
+.portal-door:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-color: var(--accent);
+  box-shadow: 
+    0 0 40px rgba(0, 229, 255, 0.3),
+    inset 0 0 60px rgba(0, 229, 255, 0.05);
+  background: rgba(0, 229, 255, 0.03);
+}
+
+.door-content {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.door-number {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  font-family: 'Playfair Display', serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: rgba(0, 229, 255, 0.08);
+  transition: all 0.4s;
+}
+
+.portal-door:hover .door-number {
+  color: rgba(0, 229, 255, 0.2);
+  transform: scale(1.1);
+  text-shadow: 0 0 20px var(--accent);
+}
+
+.door-icon-wrapper {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.door-icon {
+  font-size: 56px;
+  filter: grayscale(0.4);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  display: block;
+}
+
+.portal-door:hover .door-icon {
+  filter: grayscale(0) brightness(1.2);
+  transform: scale(1.15) rotate(5deg);
+  animation: iconPulse 1s ease-in-out infinite;
+}
+
+@keyframes iconPulse {
+  0%, 100% { 
+    filter: grayscale(0) brightness(1.2) drop-shadow(0 0 20px rgba(0, 229, 255, 0.8)); 
+  }
+  50% { 
+    filter: grayscale(0) brightness(1.4) drop-shadow(0 0 30px rgba(0, 229, 255, 1)); 
+  }
+}
+
+/* Icon glow ring */
+.door-icon-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100px;
+  height: 100px;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  opacity: 0;
+  transition: all 0.5s;
+}
+
+.portal-door:hover .door-icon-wrapper::before {
+  opacity: 0.3;
+  width: 120px;
+  height: 120px;
+  animation: ringPulse 1.5s ease-out infinite;
+}
+
+@keyframes ringPulse {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.3;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 0;
+  }
+}
+
+.door-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+  letter-spacing: -.02em;
+  transition: all 0.3s;
+}
+
+.portal-door:hover .door-title {
+  color: var(--accent);
+  transform: translateY(-2px);
+  text-shadow: 0 0 20px rgba(0, 229, 255, 0.5);
+}
+
+.door-subtitle {
+  font-size: 10px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  opacity: 0.7;
+  transition: all 0.3s;
+}
+
+.portal-door:hover .door-subtitle {
+  opacity: 1;
+  color: var(--accent);
+  transform: translateY(-2px);
+}
+
+/* Click animation - video transition effect */
+.portal-door.activating {
+  animation: doorActivate 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes doorActivate {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  20% {
+    transform: translateY(-15px) scale(1.05);
+    box-shadow: 0 0 80px rgba(0, 229, 255, 0.8);
+  }
+  40% {
+    transform: translateY(-20px) scale(1.08);
+    opacity: 0.9;
+  }
+  60% {
+    transform: translateY(-30px) scale(1.1);
+    opacity: 0.6;
+    filter: blur(2px);
+  }
+  80% {
+    transform: translateY(-50px) scale(0.95);
+    opacity: 0.3;
+    filter: blur(4px);
+  }
+  100% {
+    transform: translateY(-80px) scale(0.8);
+    opacity: 0;
+    filter: blur(8px);
+  }
+}
+
+/* Glitch effect on click */
+.portal-door.glitch {
+  animation: glitchEffect 0.3s steps(2) infinite;
+}
+
+@keyframes glitchEffect {
+  0% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    transform: translate(-2px, -2px);
+  }
+  60% {
+    transform: translate(2px, 2px);
+  }
+  80% {
+    transform: translate(2px, -2px);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+
+/* Responsive doors */
+@media (max-width: 1200px) {
+  .doors-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-doors {
+    width: calc(100vw - 48px);
+  }
+  .doors-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .portal-door {
+    height: 240px;
+  }
+  .door-icon {
+    font-size: 44px;
+  }
+  .door-title {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-doors {
+    width: calc(100vw - 48px);
+  }
+  .doors-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1031,6 +1357,70 @@ footer {
         <div class="meta-lbl">Graduating</div>
       </div>
     </div>
+    
+    <!-- DOORS SECTION -->
+    <div class="hero-doors">
+      <div class="doors-label">↓ Explore Sections ↓</div>
+      <div class="doors-grid">
+        
+        <div class="portal-door" data-section="about">
+          <canvas class="door-particles" width="200" height="320"></canvas>
+          <div class="door-content">
+            <div class="door-icon-wrapper">
+              <div class="door-icon">👤</div>
+            </div>
+            <div class="door-title">About</div>
+            <div class="door-subtitle">Who I Am</div>
+          </div>
+        </div>
+        
+        <div class="portal-door" data-section="skills">
+          <canvas class="door-particles" width="200" height="320"></canvas>
+          <div class="door-content">
+            <div class="door-icon-wrapper">
+              <div class="door-icon">⚡</div>
+            </div>
+            <div class="door-title">Skills</div>
+            <div class="door-subtitle">My Expertise</div>
+          </div>
+        </div>
+        
+        <div class="portal-door" data-section="projects">
+          <canvas class="door-particles" width="200" height="320"></canvas>
+          <div class="door-content">
+            <div class="door-icon-wrapper">
+              <div class="door-icon">🚀</div>
+            </div>
+            <div class="door-title">Projects</div>
+            <div class="door-subtitle">My Work</div>
+          </div>
+        </div>
+        
+        <div class="portal-door" data-section="experience">
+          <canvas class="door-particles" width="200" height="320"></canvas>
+          <div class="door-content">
+            <div class="door-icon-wrapper">
+              <div class="door-icon">💼</div>
+            </div>
+            <div class="door-title">Experience</div>
+            <div class="door-subtitle">My Journey</div>
+          </div>
+        </div>
+        
+        <div class="portal-door" data-section="certificates">
+          <canvas class="door-particles" width="200" height="320"></canvas>
+          <div class="door-content">
+            <div class="door-icon-wrapper">
+              <div class="door-icon">🏆</div>
+            </div>
+            <div class="door-title">Certifications</div>
+            <div class="door-subtitle">Achievements</div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    
   </div>
 </section>
 
@@ -1583,7 +1973,7 @@ footer {
   <p>AI/ML Engineer · Building Production Systems</p>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // Custom Cursor
 const c = document.getElementById('c');
 const cr = document.getElementById('cr');
@@ -1617,13 +2007,102 @@ function closePdf(id) {
     document.body.style.overflow = '';
   }
 }
-// Close modal when clicking outside the inner box
-document.addEventListener('click', function(e) {
-  if (e.target.classList.contains('pdf-modal')) {
-    e.target.classList.remove('open');
-    document.body.style.overflow = '';
+
+// ==================== DOOR PARTICLE ANIMATION ====================
+class DoorParticle {
+  constructor(canvas) {
+    this.canvas = canvas;
+    this.ctx = canvas.getContext('2d');
+    this.particles = [];
+    this.particleCount = 30;
+    this.init();
   }
+  
+  init() {
+    for (let i = 0; i < this.particleCount; i++) {
+      this.particles.push({
+        x: Math.random() * this.canvas.width,
+        y: Math.random() * this.canvas.height,
+        size: Math.random() * 2 + 1,
+        speedX: (Math.random() - 0.5) * 0.5,
+        speedY: (Math.random() - 0.5) * 0.5,
+        opacity: Math.random() * 0.5 + 0.3
+      });
+    }
+  }
+  
+  animate() {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    
+    this.particles.forEach(particle => {
+      particle.x += particle.speedX;
+      particle.y += particle.speedY;
+      
+      if (particle.x < 0 || particle.x > this.canvas.width) particle.speedX *= -1;
+      if (particle.y < 0 || particle.y > this.canvas.height) particle.speedY *= -1;
+      
+      this.ctx.fillStyle = `rgba(0, 229, 255, ${particle.opacity})`;
+      this.ctx.beginPath();
+      this.ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+      this.ctx.fill();
+    });
+  }
+}
+
+// Initialize particles for each door
+const doorParticles = [];
+document.querySelectorAll('.door-particles').forEach((canvas, index) => {
+  const particleSystem = new DoorParticle(canvas);
+  doorParticles.push(particleSystem);
+  
+  let animationId;
+  const door = canvas.closest('.portal-door');
+  
+  door.addEventListener('mouseenter', () => {
+    function animate() {
+      particleSystem.animate();
+      animationId = requestAnimationFrame(animate);
+    }
+    animate();
+  });
+  
+  door.addEventListener('mouseleave', () => {
+    cancelAnimationFrame(animationId);
+    canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+  });
+});
+
+// ==================== DOOR CLICK FUNCTIONALITY ====================
+document.querySelectorAll('.portal-door').forEach(door => {
+  door.addEventListener('click', () => {
+    const targetSection = door.getAttribute('data-section');
+    const section = document.getElementById(targetSection);
+    
+    if (section) {
+      // Add glitch effect
+      door.classList.add('glitch');
+      
+      setTimeout(() => {
+        door.classList.remove('glitch');
+        door.classList.add('activating');
+      }, 300);
+      
+      // Scroll to section after animation
+      setTimeout(() => {
+        section.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'start' 
+        });
+        
+        // Reset door after scroll
+        setTimeout(() => {
+          door.classList.remove('activating');
+        }, 1000);
+      }, 600);
+    }
+  });
 });
 </script>
+
 </body>
 </html>
